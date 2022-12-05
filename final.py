@@ -3,6 +3,7 @@ import math
 import time
 import random
 
+
 #screen setup
 pygame.init()
 WIDTH, HEIGHT = 800,500
@@ -71,43 +72,46 @@ def draw():
 
 #setup game loop
 while True:
-    draw()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            pos_x, pos_y = pygame.mouse.get_pos()
-            for letter in letters:
-                x, y, ltr, visible = letter
-                if visible:
-                    distance = math.sqrt((x - pos_x)**2 + (y- pos_y)**2)
-                    if distance < RADIUS:
-                        letter[3] = False
-                        guesses.append(ltr)
-                        if ltr not in words:
-                            mid_level += 1
-    win = True
-    for letter in words:
-        if letter not in guesses:
-            win = False
+        draw()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos_x, pos_y = pygame.mouse.get_pos()
+                for letter in letters:
+                    x, y, ltr, visible = letter
+                    if visible:
+                        distance = math.sqrt((x - pos_x)**2 + (y - pos_y)**2)
+                        if distance < RADIUS:
+                            letter[3] = False
+                            guesses.append(ltr)
+                            if ltr not in words:
+                                mid_level += 1
+        draw()
+
+        win = True
+        for letter in words:
+            if letter not in guesses:
+                win = False
+                break
+        if win:
+            pygame.time.delay(1500)
+            screen.fill((255, 255, 255))
+            winner = font3.render("YOU WON!", 1, (0, 0, 0))
+            screen.blit(winner, (WIDTH/2 - winner.get_width()/2, HEIGHT/2 - winner.get_height()/2))
+            pygame.display.update()
+            pygame.time.delay(3000)
             break
-    if win:
-        pygame.time.delay(100)
-        screen.fill((255,255,255))
-        winner = font3.render("YOU WON!", 1, (0,0,0))
-        screen.blit(winner, (WIDTH/2 - winner.get_width()/2, HEIGHT/2 - winner.get_height()/2))
-        pygame.display.update()
-        pygame.time.delay(3000)
-        break
-    if mid_level == 6:
-        pygame.time.delay(1500)
-        screen.fill((255, 255, 255))
-        looser = font3.render("YOU LOST!", 1, (0, 0, 0))
-        screen.blit(looser, (WIDTH / 2 - looser.get_width() / 2, HEIGHT / 2 - looser.get_height() / 2))
-        pygame.display.update()
-        pygame.time.delay(3000)
-        break
+        if mid_level == 6:
+            pygame.time.delay(1500)
+            screen.fill((255, 255, 255))
+            looser = font3.render("YOU LOST!", 1, (0, 0, 0))
+            screen.blit(looser, (WIDTH / 2 - looser.get_width() / 2, HEIGHT / 2 - looser.get_height() / 2))
+            pygame.display.update()
+            pygame.time.delay(3000)
+            break
 pygame.quit()
 
 
