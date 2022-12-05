@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 import math
 import time
@@ -21,6 +23,10 @@ for i in range(26):
     x = startx + GAP * 2 + ((RADIUS * 2 +GAP) * (i % 13))
     y = starty + ((i // 13) * (GAP + RADIUS * 2))
     letters.append([x, y, chr(A + i), True])
+
+#Music
+pygame.mixer.music.load('sounds/xxx.wav')
+pygame.mixer.music.play(-1)
 
 #fonts
 font = pygame.font.SysFont('gabriola', 25)
@@ -77,7 +83,8 @@ while True:
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos_x, pos_y = pygame.mouse.get_pos()
                 for letter in letters:
