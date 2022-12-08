@@ -2,7 +2,7 @@ import sys
 
 import pygame
 import math
-import time
+from time import sleep
 import random
 
 
@@ -46,11 +46,13 @@ mid_level = 0
 list = ['ABOARD', 'AFT', 'ALONGSIDE', 'ANCHOR', 'ANCHORAGE', 'BARNACLE', 'BELAY', 'BERTH', 'BERTHING', 'BILLET', 'BOW', 'BRIDGE', 'BRIG', 'BULKHEAD', 'CAPTAIN', 'CHAPLAIN', 'COMMISSARY', 'COMMISSION', 'COMMODORE', 'COMPARTMENT', 'CONUS', 'COURSE', 'CRUISE', 'DECK', 'DETAILER', 'DEPLOY', 'EMBARK', 'ENLISTED', 'ENSIGN', 'XO', 'FATHOM', 'FLAG', 'FORECASTLE', 'FROGMAN', 'GALLEY', 'GANGPLANK', 'GANGWAY', 'GOUGE', 'HEAD', 'HONORS', 'KNOT', 'LADDER', 'LEATHERNECK', 'LOOKOUT', 'MAST', 'MESS', 'MID', 'MIDSHIPMAN', 'MILITARY', 'MUSTER', 'PASSAGEWAY', 'POD', 'PORT', 'QUARTERDECK', 'QUARTERS', 'RANK', 'RATE', 'RATING', 'SAILOR', 'SCUTTLEBUTT', 'SHIPMATE', 'SKIPPER', 'STARBOARD', 'STERN', 'STOW', 'SWAB', 'TOPSIDE', 'TRICARE', 'WARDROOM', 'WATCH', 'AWOL', 'CHOW', '`NEX', 'OCONUS', 'OVERBOARD', 'MOORING', 'LOG', 'ADMIRAL', 'CHIT', 'SAILING', 'RACK', 'PROPULSION']
 words = random.choice(list)
 guesses = []
+clock = pygame.time.Clock()
+#counter, text1 = 60, "60" .rjust(3)
 
 
 def draw():
-    screen.fill((255, 255, 255))
-
+    screen.fill((0, 255, 255))
+    #global counter
     #draw title
     title = font4.render('NAVY HANGMAN', 1, (0,0,255))
     screen.blit(title, (WIDTH/2 - title.get_width()/2, 20))
@@ -62,6 +64,7 @@ def draw():
             pygame.draw.circle(screen, (0,0,0), (x, y), RADIUS, 3)
             text = font.render(ltr, 1, (0,0,0))
             screen.blit(text, (x - text.get_width()/2 , y - text.get_height()/2))
+
 
     #draw words
     word = ''
@@ -75,10 +78,14 @@ def draw():
 
     screen.blit(images[mid_level], (150, 100))
     pygame.display.update()
+def count_up():
+    count = 10
+    for x in range(1, count + 1):
+        print(x, 'seconds')
+        sleep(1)
 
 #setup game loop
 while True:
-
         draw()
 
         for event in pygame.event.get():
@@ -119,6 +126,7 @@ while True:
             pygame.display.update()
             pygame.time.delay(3000)
             break
+
 pygame.quit()
 
 
