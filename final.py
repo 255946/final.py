@@ -47,12 +47,12 @@ list = ['ABOARD', 'AFT', 'ALONGSIDE', 'ANCHOR', 'ANCHORAGE', 'BARNACLE', 'BELAY'
 words = random.choice(list)
 guesses = []
 clock = pygame.time.Clock()
-#counter, text1 = 60, "60" .rjust(3)
+
 
 
 def draw():
     screen.fill((0, 255, 255))
-    #global counter
+
     #draw title
     title = font4.render('NAVY HANGMAN', 1, (0,0,255))
     screen.blit(title, (WIDTH/2 - title.get_width()/2, 20))
@@ -83,15 +83,18 @@ def count_up():
     for x in range(1, count + 1):
         print(x, 'seconds')
         sleep(1)
-
+def check_keydown_events(self, event):
+    if event.key == pygame.K_q:
+        sys.exit()
 #setup game loop
 while True:
         draw()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                check_keydown_events(event)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos_x, pos_y = pygame.mouse.get_pos()
                 for letter in letters:
